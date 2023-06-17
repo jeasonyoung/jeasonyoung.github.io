@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.zenyoung.top","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="学习JavaFX(二)javafx.scene.layout包提供了一系列用于布局的类1234567891011121314151617181920212223242526272829AnchorPaneAnchorPaneBuilder&lt;B extends AnchorPaneBuilder&lt;B&gt;&gt;BorderPaneBorderPaneBuilder&lt;B exte">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习JavaFX(二)">
+<meta property="og:url" content="http://blog.zenyoung.top/2020/01/28/javafx-layout/index.html">
+<meta property="og:site_name" content="万水千山总是情">
+<meta property="og:description" content="学习JavaFX(二)javafx.scene.layout包提供了一系列用于布局的类1234567891011121314151617181920212223242526272829AnchorPaneAnchorPaneBuilder&lt;B extends AnchorPaneBuilder&lt;B&gt;&gt;BorderPaneBorderPaneBuilder&lt;B exte">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-01-28T13:01:26.000Z">
+<meta property="article:modified_time" content="2020-08-18T04:02:55.565Z">
+<meta property="article:author" content="农民叔叔">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="javafx">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://blog.zenyoung.top/2020/01/28/javafx-layout/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://blog.zenyoung.top/2020/01/28/javafx-layout/","path":"2020/01/28/javafx-layout/","title":"学习JavaFX(二)"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>学习JavaFX(二) | 万水千山总是情</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?d109fae4b51d8d6d362d4e5a3656e52f"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">万水千山总是情</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">祠堂湾</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">21</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">34</span></a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AD%A6%E4%B9%A0JavaFX-%E4%BA%8C"><span class="nav-number">1.</span> <span class="nav-text">学习JavaFX(二)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#javafx-scene-layout%E5%8C%85%E6%8F%90%E4%BE%9B%E4%BA%86%E4%B8%80%E7%B3%BB%E5%88%97%E7%94%A8%E4%BA%8E%E5%B8%83%E5%B1%80%E7%9A%84%E7%B1%BB"><span class="nav-number">1.1.</span> <span class="nav-text">javafx.scene.layout包提供了一系列用于布局的类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#javafx-scene-layout-Region%E7%B1%BB"><span class="nav-number">1.2.</span> <span class="nav-text">javafx.scene.layout.Region类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Pane-%E7%AA%97%E6%A0%BC-x2F-%E9%9D%A2%E6%9D%BF"><span class="nav-number">1.3.</span> <span class="nav-text">Pane(窗格&#x2F;面板)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Pane%E7%9A%84%E5%AD%90%E7%B1%BB"><span class="nav-number">1.4.</span> <span class="nav-text">Pane的子类</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#BorderPane"><span class="nav-number">1.4.1.</span> <span class="nav-text">BorderPane</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#StackPane"><span class="nav-number">1.4.2.</span> <span class="nav-text">StackPane</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#HBox"><span class="nav-number">1.4.3.</span> <span class="nav-text">HBox</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#VBox"><span class="nav-number">1.4.4.</span> <span class="nav-text">VBox</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#FlowPane"><span class="nav-number">1.4.5.</span> <span class="nav-text">FlowPane</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#GridPane"><span class="nav-number">1.4.6.</span> <span class="nav-text">GridPane</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getChildren-%E6%96%B9%E6%B3%95"><span class="nav-number">1.5.</span> <span class="nav-text">getChildren()方法</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="农民叔叔"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">农民叔叔</p>
+  <div class="site-description" itemprop="description">一位青年码农</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jeasonyoung" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jeasonyoung" rel="noopener me" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.zenyoung.top/2020/01/28/javafx-layout/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="农民叔叔">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="万水千山总是情">
+      <meta itemprop="description" content="一位青年码农">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="学习JavaFX(二) | 万水千山总是情">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          学习JavaFX(二)
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-01-28 21:01:26" itemprop="dateCreated datePublished" datetime="2020-01-28T21:01:26+08:00">2020-01-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-08-18 12:02:55" itemprop="dateModified" datetime="2020-08-18T12:02:55+08:00">2020-08-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/GUI/" itemprop="url" rel="index"><span itemprop="name">GUI</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h3 id="学习JavaFX-二"><a href="#学习JavaFX-二" class="headerlink" title="学习JavaFX(二)"></a>学习JavaFX(二)</h3><h4 id="javafx-scene-layout包提供了一系列用于布局的类"><a href="#javafx-scene-layout包提供了一系列用于布局的类" class="headerlink" title="javafx.scene.layout包提供了一系列用于布局的类"></a><code>javafx.scene.layout</code>包提供了一系列用于布局的类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">AnchorPane</span><br><span class="line">AnchorPaneBuilder&lt;B <span class="keyword">extends</span> <span class="title class_">AnchorPaneBuilder</span>&lt;B&gt;&gt;</span><br><span class="line"></span><br><span class="line">BorderPane</span><br><span class="line">BorderPaneBuilder&lt;B <span class="keyword">extends</span> <span class="title class_">BorderPaneBuilder</span>&lt;B&gt;&gt;</span><br><span class="line"></span><br><span class="line">ColumnConstraints</span><br><span class="line"></span><br><span class="line">ConstraintsBase</span><br><span class="line"></span><br><span class="line">FlowPane</span><br><span class="line">FlowPaneBuilder&lt;B <span class="keyword">extends</span> <span class="title class_">FlowPaneBuilder</span>&lt;B&gt;&gt;</span><br><span class="line"></span><br><span class="line">GridPane</span><br><span class="line">GridPaneBuilder&lt;B <span class="keyword">extends</span> <span class="title class_">GridPaneBuilder</span>&lt;B&gt;&gt;</span><br><span class="line"></span><br><span class="line">HBox</span><br><span class="line">HBoxBuilder&lt;B <span class="keyword">extends</span> <span class="title class_">HBoxBuidler</span>&lt;B&gt;&gt;</span><br><span class="line"></span><br><span class="line">Pane</span><br><span class="line">PaneBuilder&lt;B <span class="keyword">extends</span> <span class="title class_">RegionBuilder</span>&lt;B&gt;&gt;</span><br><span class="line"></span><br><span class="line">RowConstraintsBuilder&lt;B <span class="keyword">extends</span> <span class="title class_">StackPaneBuilder</span>&lt;B&gt;&gt;</span><br><span class="line"></span><br><span class="line">TitlePane</span><br><span class="line">TitlePaneBuilder&lt;B <span class="keyword">extends</span> <span class="title class_">TitlePaneBuilder</span>&lt;B&gt;&gt;</span><br><span class="line"></span><br><span class="line">VBox</span><br><span class="line">VBoxBuilder&lt;B <span class="keyword">extends</span> <span class="title class_">VBoxBuilder</span>&lt;B&gt;&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="javafx-scene-layout-Region类"><a href="#javafx-scene-layout-Region类" class="headerlink" title="javafx.scene.layout.Region类"></a><code>javafx.scene.layout.Region</code>类</h4><p>在<code>javafx.scene.layout</code>包下,有个特殊的类<code>javafx.scene.layout.Region</code>类<br><code>Region</code>可以容纳其它结点并被<code>CSS</code>装饰</p>
+<p>JavaFX的布局控件和界面元素控件都是继承自<code>javafx.scene.Region</code></p>
+<h4 id="Pane-窗格-x2F-面板"><a href="#Pane-窗格-x2F-面板" class="headerlink" title="Pane(窗格&#x2F;面板)"></a><code>Pane</code>(窗格&#x2F;面板)</h4><p><code>javafx.scene.layout.Pane</code>类继承自<code>javafx.scene.layout.Region</code>类</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">java.lang.Object</span><br><span class="line">    javafx.scene.Node</span><br><span class="line">        javafx.scene.Parent</span><br><span class="line">            javafx.scene.Parent</span><br><span class="line">                javafx.scene.layout.Region</span><br><span class="line">                    javafx.scene.layout.Pane</span><br></pre></td></tr></table></figure>
+<p><code>javafx.scene.layout.Pane</code>类是其它控件布局的父类,可以将<code>Pane</code>看成一个绝对布局控件,当某个控件放置在<code>Pane</code>当中时,需要指定它的位置(<code>layoutX</code>,<code>layoutY</code>),而当将几个控件拖拽到<code>Pane</code>中会自动生成<code>layoutX</code>,<code>layoutY</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Pane</span> <span class="variable">root</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Pane</span>();</span><br><span class="line"><span class="type">Scene</span> <span class="variable">scene</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scene</span>(root)</span><br></pre></td></tr></table></figure>
+<p>通常我们不直接使用<code>Pane</code>类而是使用它的之类;</p>
+<h4 id="Pane的子类"><a href="#Pane的子类" class="headerlink" title="Pane的子类"></a><code>Pane</code>的子类</h4><h5 id="BorderPane"><a href="#BorderPane" class="headerlink" title="BorderPane"></a><code>BorderPane</code></h5><p><code>BorderPane</code>提供了五个放置节点的区域: <code>top</code>、<code>bottom</code>、<code>left</code>、<code>right</code>和<code>center</code>;这些区域的大小是自定义的,可以不定义它;<code>BorderPane</code>就不回给该区域分配空间;</p>
+<p>默认情况下,如果窗口比所有区域所需空间还大,多余的空间将被分配给中间区域;如果窗口比所需空间小,区域可能会重叠;重叠是由区域设置的顺序决定的;</p>
+<h5 id="StackPane"><a href="#StackPane" class="headerlink" title="StackPane"></a><code>StackPane</code></h5><p><code>StackPane</code>类的地方在一个背到前面的单栈的内容节点;</p>
+<h5 id="HBox"><a href="#HBox" class="headerlink" title="HBox"></a><code>HBox</code></h5><p><code>HBox</code> 水平排列空间,不换行</p>
+<h5 id="VBox"><a href="#VBox" class="headerlink" title="VBox"></a><code>VBox</code></h5><p><code>VBox</code> 垂直排列空间,不换行</p>
+<h5 id="FlowPane"><a href="#FlowPane" class="headerlink" title="FlowPane"></a><code>FlowPane</code></h5><p><code>FlowPane</code> 综合类 <code>HBox</code>、<code>VBox</code>的特点, 既可以水平, 也可以垂直排列</p>
+<h5 id="GridPane"><a href="#GridPane" class="headerlink" title="GridPane"></a><code>GridPane</code></h5><p><code>GridPane</code> 类似于HTML的<code>table</code>布局</p>
+<h4 id="getChildren-方法"><a href="#getChildren-方法" class="headerlink" title="getChildren()方法"></a><code>getChildren()</code>方法</h4><p>JavaFX的场景中单独的元素叫节点(<code>Node</code>),这些节点决定了JavaFX用分层次的树状态结构来表示应用接口;它既能处理输入也能渲染输出;<br>除了根节点外,每个节点都有一个父节点并且有0-N多个子节点<br><code>getChildren()</code>方法在<code>Parent</code>类中定义,返回该节点的所有子节点的列表</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> ObservableList&lt;Node&gt; <span class="title function_">getChildren</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> children;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>children</code>属于<code>VetoableListDecorator</code>类,向上转型自<code>ObservableList</code>接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ObservableList</span>&lt;E&gt; <span class="keyword">extends</span> <span class="title class_">List</span>&lt;E&gt;, Observable</span><br></pre></td></tr></table></figure>
+
+<p><code>StackPane</code>对象可以直接使用<code>getChildren().add()</code>添加新的子节点</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> application;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javafx.application.Application;</span><br><span class="line"><span class="keyword">import</span> javafx.scene.Scene;</span><br><span class="line"><span class="keyword">import</span> javafx.scene.control.Button;</span><br><span class="line"><span class="keyword">import</span> javafx.scene.layout.StackPane;</span><br><span class="line"><span class="keyword">import</span> javafx.stage.Stage;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> <span class="keyword">extends</span> <span class="title class_">Application</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        launch(args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">start</span><span class="params">(Stage primaryStage)</span> &#123;</span><br><span class="line">        primaryStage.setTitle(<span class="string">&quot;Hello JavaFX!&quot;</span>);</span><br><span class="line">        <span class="type">Button</span> <span class="variable">btn</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Button</span>();</span><br><span class="line">        btn.setText(<span class="string">&quot;Hello World&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">StackPane</span> <span class="variable">root</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StackPane</span>();</span><br><span class="line">        root.getChildren().add(btn);</span><br><span class="line"></span><br><span class="line">        primaryStage.setScene(<span class="keyword">new</span> <span class="title class_">Scene</span>(root, <span class="number">300</span>, <span class="number">250</span>));</span><br><span class="line">        primaryStage.show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>BorderPane</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> application;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javafx.application.Application;</span><br><span class="line"><span class="keyword">import</span> javafx.geometry.Inserts;</span><br><span class="line"><span class="keyword">import</span> javafx.scene.Scene;</span><br><span class="line"><span class="keyword">import</span> javafx.scene.control.Button;</span><br><span class="line"><span class="keyword">import</span> javafx.scene.layout.BorderPane;</span><br><span class="line"><span class="keyword">import</span> javafx.stage.Stage;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Main</span> <span class="keyword">extends</span> <span class="title class_">Application</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        Application.launch(args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">start</span><span class="params">(Stage primaryStage)</span>&#123;</span><br><span class="line">        primaryStage.setTitle(<span class="string">&quot;BorderPanel Test&quot;</span>);</span><br><span class="line">        <span class="type">BorderPane</span> <span class="variable">bp</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BorderPane</span>();</span><br><span class="line">        bp.setPadding(<span class="keyword">new</span> <span class="title class_">Insets</span>(<span class="number">10</span>, <span class="number">20</span>, <span class="number">10</span>, <span class="number">20</span>));</span><br><span class="line"></span><br><span class="line">        <span class="type">Button</span> <span class="variable">btnTop</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Button</span>(<span class="string">&quot;Top&quot;</span>);</span><br><span class="line">        bp.setTop(btnTop);</span><br><span class="line"></span><br><span class="line">        <span class="type">Button</span> <span class="variable">btnLeft</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Button</span>(<span class="string">&quot;Left&quot;</span>);</span><br><span class="line">        bp.setLeft(btnLeft);</span><br><span class="line"></span><br><span class="line">        <span class="type">Button</span> <span class="variable">btnCenter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Button</span>(<span class="string">&quot;Center&quot;</span>);</span><br><span class="line">        bp.setCenter(btnCenter);</span><br><span class="line"></span><br><span class="line">        <span class="type">Button</span> <span class="variable">btnRight</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Button</span>(<span class="string">&quot;Right&quot;</span>);</span><br><span class="line">        bp.setRight(btnRight);</span><br><span class="line"></span><br><span class="line">        <span class="type">Button</span> <span class="variable">btnBottom</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Button</span>(<span class="string">&quot;Bottom&quot;</span>);</span><br><span class="line">        bp.setBottom(btnBottom);</span><br><span class="line"></span><br><span class="line">        <span class="type">Scene</span> <span class="variable">scene</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Scene</span>(bp, <span class="number">300</span>, <span class="number">200</span>);</span><br><span class="line">        primaryStage.setScene(scene);</span><br><span class="line">        primaryStage.show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"># java</a>
+              <a href="/tags/javafx/" rel="tag"># javafx</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/01/28/javafx-gui/" rel="prev" title="学习JavaFX(一)">
+                  <i class="fa fa-chevron-left"></i> 学习JavaFX(一)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/01/29/javafx-stage/" rel="next" title="学习JavaFX(三)">
+                  学习JavaFX(三) <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">湘ICP备17016516号-1 </a>
+      <img src="http://www.beian.gov.cn/portal/download" alt="">
+  </div>
+
+<div class="copyright">
+  &copy; 2005 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">农民叔叔</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/jeasonyoung" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

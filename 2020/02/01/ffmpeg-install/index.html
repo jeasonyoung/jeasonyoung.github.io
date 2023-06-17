@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.zenyoung.top","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.17.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Centos7 下安装 FFmpegffmpeg 是一套可以用来记录、转换数字音频、视频,将其转化为流的开源计算机程序,采用LGPL或GPL许可证;提供录制、转换以及流化音视频的完整解决方案. (1) 安装EPEL Release,安装需要使用其它的repo源,所以需要EPEL支持 1234567yum install -y epel-release rpm#如果出现缺少Code提示,就执行下面命">
+<meta property="og:type" content="article">
+<meta property="og:title" content="centos 安装 ffmpeg">
+<meta property="og:url" content="http://blog.zenyoung.top/2020/02/01/ffmpeg-install/index.html">
+<meta property="og:site_name" content="万水千山总是情">
+<meta property="og:description" content="Centos7 下安装 FFmpegffmpeg 是一套可以用来记录、转换数字音频、视频,将其转化为流的开源计算机程序,采用LGPL或GPL许可证;提供录制、转换以及流化音视频的完整解决方案. (1) 安装EPEL Release,安装需要使用其它的repo源,所以需要EPEL支持 1234567yum install -y epel-release rpm#如果出现缺少Code提示,就执行下面命">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-02-01T03:09:50.000Z">
+<meta property="article:modified_time" content="2020-08-18T04:02:55.558Z">
+<meta property="article:author" content="农民叔叔">
+<meta property="article:tag" content="centos">
+<meta property="article:tag" content="ffmpeg">
+<meta property="article:tag" content="视频">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://blog.zenyoung.top/2020/02/01/ffmpeg-install/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://blog.zenyoung.top/2020/02/01/ffmpeg-install/","path":"2020/02/01/ffmpeg-install/","title":"centos 安装 ffmpeg"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>centos 安装 ffmpeg | 万水千山总是情</title>
+  
+
+  <script src="/js/third-party/analytics/baidu-analytics.js"></script>
+  <script async src="https://hm.baidu.com/hm.js?d109fae4b51d8d6d362d4e5a3656e52f"></script>
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">万水千山总是情</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">祠堂湾</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="tags fa-fw"></i>标签<span class="badge">21</span></a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="th fa-fw"></i>分类<span class="badge">11</span></a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="archive fa-fw"></i>归档<span class="badge">34</span></a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Centos7-%E4%B8%8B%E5%AE%89%E8%A3%85-FFmpeg"><span class="nav-number">1.</span> <span class="nav-text">Centos7 下安装 FFmpeg</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="农民叔叔"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">农民叔叔</p>
+  <div class="site-description" itemprop="description">一位青年码农</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/jeasonyoung" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;jeasonyoung" rel="noopener me" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.zenyoung.top/2020/02/01/ffmpeg-install/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="农民叔叔">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="万水千山总是情">
+      <meta itemprop="description" content="一位青年码农">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="centos 安装 ffmpeg | 万水千山总是情">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          centos 安装 ffmpeg
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-02-01 11:09:50" itemprop="dateCreated datePublished" datetime="2020-02-01T11:09:50+08:00">2020-02-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-08-18 12:02:55" itemprop="dateModified" datetime="2020-08-18T12:02:55+08:00">2020-08-18</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/%E8%A7%86%E9%A2%91/" itemprop="url" rel="index"><span itemprop="name">视频</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><h3 id="Centos7-下安装-FFmpeg"><a href="#Centos7-下安装-FFmpeg" class="headerlink" title="Centos7 下安装 FFmpeg"></a>Centos7 下安装 FFmpeg</h3><p><code>ffmpeg</code> 是一套可以用来记录、转换数字音频、视频,将其转化为流的开源计算机程序,采用<code>LGPL</code>或<code>GPL</code>许可证;提供录制、转换以及流化音视频的完整解决方案.</p>
+<p>(1) 安装EPEL Release,安装需要使用其它的<code>repo</code>源,所以需要<code>EPEL</code>支持</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum install -y epel-release rpm</span><br><span class="line"></span><br><span class="line"><span class="comment">#如果出现缺少Code提示,就执行下面命名</span></span><br><span class="line">rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7</span><br><span class="line"></span><br><span class="line"><span class="comment">#安装完成后,查看是否安装成功</span></span><br><span class="line">yum repolist</span><br></pre></td></tr></table></figure>
+
+<p>(2) 安装Nux-Dextop源</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#导入Code</span></span><br><span class="line">rpm --import http://li.nux.ro/download/nux/RPM-GPG-KEY-nux.ro</span><br><span class="line"></span><br><span class="line"><span class="comment">#安装nux-dextop源(centos 7)</span></span><br><span class="line">rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-1.el7.nux.noarch.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment">#安装nux-dextop源(centos 6)</span></span><br><span class="line">rpm -Uvh http://li.nux.ro/download/nux/dextop/el6/x86_64/nux-dextop-release-0-1.el6.nux.noarch.rpm</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看repo源是否安装成功</span></span><br><span class="line">yum repolist</span><br></pre></td></tr></table></figure>
+
+<p>(3) 安装ffmpeg</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y ffmpeg</span><br></pre></td></tr></table></figure>
+
+<p>(4) 检查版本</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -version</span><br></pre></td></tr></table></figure>
+
+<p>(5) 应用:格式转换</p>
+<p>把<code>avi</code>格式转换为<code>mp4</code>格式,输入压缩的尺寸,使用<code>h264</code>进行压缩.</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i linuxidc.mp4 -vcodec h264 -s 1280*720 -acodec copy -f mp4 linuxidc.com.mp4</span><br></pre></td></tr></table></figure>
+
+<p>(6) <code>ffmpeg</code>常用基本命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">主要参数说明:</span><br><span class="line">-i 设定输入流</span><br><span class="line">-f 设定输出格式</span><br><span class="line">-ss 开始时间</span><br><span class="line"></span><br><span class="line">视频参数:</span><br><span class="line">-b 设定视频流量,默认为200kbit/s</span><br><span class="line">-r 设定帧速率,默认为25</span><br><span class="line">-s 设定画面的宽与高</span><br><span class="line">-aspect 设定画面的比例</span><br><span class="line">-vn 不处理视频</span><br><span class="line">-vcodec 设定视频编解码器,未设定时正与输入流相同的编解码器</span><br><span class="line"></span><br><span class="line">音频参数:</span><br><span class="line">-ar 设定采样率</span><br><span class="line">-ac 设定声音的Channel数</span><br><span class="line">-acodec 设定声音编解码器,未设定时则使用与输入流相同的编解码器</span><br><span class="line">-an 不处理音频</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><ol>
+<li>分离视频音频流<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#分离视频流</span></span><br><span class="line">ffmpeg -i linuxidc_file -vcodec copy -an linuxdc_file_video</span><br><span class="line"><span class="comment">#分离音频流</span></span><br><span class="line">ffmpeg -i linuxidc_file -acodec copy -vn linuxdc_file_audio</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><ol start="2">
+<li>视频分解复用<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i linuxidc.mp4 -vcodec copy -an -f m4v linuxidc.264</span><br><span class="line">ffmpeg -i linuxidc.avi -vcodec copy -an -f m4v linuxidc.264</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><ol start="3">
+<li>视频转码<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#-bf B帧数目控制,-g 关键帧间隔控制,-s 分辨率控制</span></span><br><span class="line"><span class="comment">#转码为码流原始文件</span></span><br><span class="line">ffmpeg -i linuxidc.mp4 -vcodec h264 -s 352*278 -an -f m4v linuxidc.264</span><br><span class="line"><span class="comment">#转码为码流原始文件</span></span><br><span class="line">ffmpeg -i linuxidc.mp4 -vcodec h264 -bf 0 -g 25 -s 352*278 -an -f m4v linuxidc.264</span><br><span class="line"><span class="comment">#转码为封装文件</span></span><br><span class="line">ffmpeg -i linuxidc.avi -vcodec mpeg4 vtag xvid -qsame linuxidc_xvid.avi</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><ol start="4">
+<li>视频封装<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i video_file -i audio_file -vcodec copy -acodec copy linuxdc_file</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><ol start="5">
+<li>视频剪切<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -r 提取图像的频率,-ss 开始时间,-t 持续时间</span></span><br><span class="line"><span class="comment">#提取图片</span></span><br><span class="line">ffmpeg -i linuxidc.avi -r 1 -f image2 image-%3d.jpeg</span><br><span class="line"><span class="comment">#剪切视频</span></span><br><span class="line">ffmpeg -ss 0:1:30 -t 0:0:20 -i linuxidc.avi -vcodec copy -acodec copy linuxdc.avi</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><ol start="6">
+<li>视频录制<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i rtsp://192.168.3.205:5555/linuxidc -vcodec copy linuxdc.avi</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><ol start="7">
+<li>YUV序列播放<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffplay -f rawvideo -video_size 1920x1080 linuxidc_yuv</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+<li><ol start="8">
+<li>YUV序列转AVI<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -s w*h -pix_fmt yuv420p -i linuxidc.yuv -vcodec mpeg4 linuxdc.avi</span><br></pre></td></tr></table></figure></li>
+</ol>
+</li>
+</ul>
+<ol start="0">
+<li><p>压缩转码<code>mp4</code>文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i linuxidc.avi -s 640*480 linuxdc.avi</span><br><span class="line">ffmpeg -i linuxidc.avi -strict -2 -s vga linuxdc.avi</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将文件当做直播送至<code>live</code></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -re -i localfile.mp4 -c copy -f flv rtmp://server/live/streamName</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将直播媒体保存至本地文件</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i rtmp://server/live/streamName -c copy linuxidc.flv</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将其中一个直播流,视频改用h264压缩,音频不变,送至另外一个直播服务流</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i rtmp://server/live/originalStream -c:a copy -c:v libx264 -vpre slow -f flv rtmp://server/live/h264Stream</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将其中一个直播流,视频改用h264压缩,音频改用faac压缩,送至另外一个直播服务流</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i rtmp://server/live/originalStream -c:a libfaac -ar 4410 -ab 48k -c:v libx264 -vpre slow -vpre baseline -f flv rtmp://server/live/h264Stream</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将其中一个直播流,视频不变,音频改用faac压缩,送至另外一个直播服务流</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i rtmp://server/live/originalStream -acodec libfacc -ar 44100 -ab 48k -vcodec copy -f flv rtmp://server/live/h264_AAC_Stream</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将一个高清流,复制为几个不同视频清晰度的流重新发布,其中音频不变</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -re -i rtmp://server/live/high_FMLE_stream -acodec copy -vcodec x264lib -s 640*360 -b 500k -vpre medium -vpre baseline rtmp://server/live/baseline_500k acodec copy -vcodec x264lib -s 480x272 -b 300k -vpre medium -vpre baseline rtmp://server/live/baseline_300k -acodec copy -vcodec x264lib -s 320x200 -b 150k -vpre medium -vpre baseline rtmp://server/live/baseline_150k -acodec libfaac -vn -ab 48k rtmp://server/live/audio_only_AAC_48k</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>功能一样,只是采用<code>-x264opts</code>选项</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -re -i rtmp://server/live/high_FMLE_stream -c:a copy -c:v x264lib -s 640x360 -x264opts bitrate=500:profile=baseline:preset=slow rtmp://server/live/baseline_500k -c:a copy -c:v x264lib -s 480x272 -x264opts bitrate=300:profile=baseline:preset=slow rtmp://server/live/baseline_300k -c:a copy -c:v x264lib -s 320x200 -x264opts bitrate=150:profile=baseline:preset=slow rtmp://server/live/baseline_150k -c:a libfacc -vn -b:a 48k rtmp://server/live/audio_only_AAC_48k</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将当前摄像头及音频通过<code>DSSHOW</code>采集,视频<code>H264</code>、音频<code>faac</code>压缩后发布</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -r 25 -f dshow -s 640x480 -i video=<span class="string">&quot;video source name&quot;</span>:audio=<span class="string">&quot;audio source name&quot;</span> -vcodec libx264 -b 600k -vpre slow acodec libfaac -ab 128k -f flv rtmp://server/live/stream_name</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将一个<code>JPG</code>图片经过<code>h264</code>压缩循环输出为<code>mp4</code>视频</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i linuxidec.jpg -an -vcodec libx264 -coder 1 -flags +loop -cmp +chroma -subq 10 -qcomp 0.6 -qmin 10 -qmax 51 -qdiff 4 -flags2 +dct8x8 -trellis 2 -partitions + parti8x8 + parti4x4 -crf 24 -threads 0 -r 25 -g 25 -y linuxd.mp4</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将普通流视频改为<code>h264</code>压缩,音频不变,送至高清流服务(新版本<code>FMS live=1</code>)</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -i rtmp://server/live/originalStream -c:a copy -c:v libx264 -vpre slow -f flv <span class="string">&quot;rtmp://server/live/h264Stream live=1&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>采用<code>usb</code>摄像头视频命令:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -t 10 -f vfwcap -i 0 -r 8 -f mp4 linuxidc.mp4</span><br></pre></td></tr></table></figure>
+<p>具体说明: 采集10秒,采集设备为<code>vfwcap</code>类型设备,第<code>0</code>个<code>vfwcap</code>采集设备(如果系统有多个<code>vfw</code>的视频采集设备,可通过<code>-i num</code>来选择),每秒8帧,输出方式为文件,格式<code>mp4</code>;</p>
+</li>
+<li><p>最简单的抓屏</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -f gdigrab -i desktop out.mpg</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>从屏幕的(10,20)点处开始,抓取640x480的屏幕,设定帧率为5</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -f gdigrab -framerate 5 -offset_x 10 -offset_y 20 -video_size 640x480 -i desktop out.mpg</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>ffmpeg</code>从视频中生成<code>gif</code>图片</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ffmpeg -f linuxidc.mp4 -t 10 -s 320x240 -pix_fmt rgb24 linuxidc.gif</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/centos/" rel="tag"># centos</a>
+              <a href="/tags/ffmpeg/" rel="tag"># ffmpeg</a>
+              <a href="/tags/%E8%A7%86%E9%A2%91/" rel="tag"># 视频</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2020/01/29/javafx-scene/" rel="prev" title="学习JavaFX(五)">
+                  <i class="fa fa-chevron-left"></i> 学习JavaFX(五)
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/02/01/ffmpeg-using/" rel="next" title="ffmpeg 简单用法">
+                  ffmpeg 简单用法 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">湘ICP备17016516号-1 </a>
+      <img src="http://www.beian.gov.cn/portal/download" alt="">
+  </div>
+
+<div class="copyright">
+  &copy; 2005 – 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">农民叔叔</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/mist/" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+  <div class="sidebar-dimmer"></div>
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+  <a href="https://github.com/jeasonyoung" class="github-corner" title="在 GitHub 上关注我" aria-label="在 GitHub 上关注我" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
